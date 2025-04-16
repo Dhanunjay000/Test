@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Call SuiteCRM API</title>
+</head>
+<body>
+  <h2>GET Data from CustomerAPI</h2>
+  <button onclick="callAPI()">Call API</button>
+
+  <pre id="responseOutput"></pre>
+
+  <script>
+    function callAPI() {
+      const url = "http://192.168.0.188/development/bhavana/local_prod/suitecrm/index.php?entryPoint=CustomerAPI&id=c39f5584-d913-b148-ddf3-67fe477fdf47";
+
+      fetch(url, {
+        method: 'GET',
+        headers: {
+          'Authorization': 'b4664afcb20ecda78d52b3fe513d2b8a'
+        }
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok. Status: ' + response.status);
+        }
+        return response.json(); // You can use .text() if it's not JSON
+      })
+      .then(data => {
+        document.getElementById("responseOutput").textContent = JSON.stringify(data, null, 2);
+      })
+      .catch(error => {
+        document.getElementById("responseOutput").textContent = 'Error: ' + error.message;
+        console.error('Fetch error:', error);
+      });
+    }
+  </script>
+</body>
+</html>
+
